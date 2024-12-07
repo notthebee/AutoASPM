@@ -89,13 +89,14 @@ def patch_device(addr, aspm_value):
 
 
 def list_supported_devices():
+    pcie_addr_regex = r"([0-9a-f]{2}:[0-9a-f]{2}.[0-9a-f])"
     lspci = subprocess.run("lspci -vv", shell=True, capture_output=True).stdout
-    lspci_arr = re.split(r"([0-9]{2}:[0-9]{2}.[0-9])", str(lspci))[1:]
+    lspci_arr = re.split(pcie_addr_regex, str(lspci))[1:]
     lspci_arr = [ x+y for x,y in zip(lspci_arr[0::2], lspci_arr[1::2]) ]
 
     aspm_devices = {}
     for dev in lspci_arr:
-        device_addr = re.findall(r"([0-9]{2}:[0-9]{2}.[0-9])", dev)[0]
+        device_addr = re.findall(pcie_addr_regex, dev)[0]
         if "ASPM" not in dev or "ASPM not supported" in dev:
             continue
         aspm_support = ASPM[re.findall(r"ASPM (L[L0-1s ]*),", dev)[0].replace(" ", "")]
