@@ -99,8 +99,9 @@ def list_supported_devices():
         device_addr = re.findall(pcie_addr_regex, dev)[0]
         if "ASPM" not in dev or "ASPM not supported" in dev:
             continue
-        aspm_support = ASPM[re.findall(r"ASPM (L[L0-1s ]*),", dev)[0].replace(" ", "")]
-        aspm_devices.update({device_addr: aspm_support})
+        aspm_support = re.findall(r"ASPM (L[L0-1s ]*),", dev)
+        if aspm_support:
+            aspm_devices.update({device_addr: ASPM[aspm_support[0].replace(" ", "")]})
     return aspm_devices
 
 
