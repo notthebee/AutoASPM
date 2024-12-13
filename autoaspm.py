@@ -89,7 +89,7 @@ def patch_device(addr, aspm_value):
 
 
 def list_supported_devices():
-    pcie_addr_regex = r"([0-9a-f]{2}:[0-9a-f]{2}.[0-9a-f])"
+    pcie_addr_regex = r"([0-9a-f]{2}:[0-9a-f]{2}\.[0-9a-f])"
     lspci = subprocess.run("lspci -vv", shell=True, capture_output=True).stdout
     lspci_arr = re.split(pcie_addr_regex, str(lspci))[1:]
     lspci_arr = [ x+y for x,y in zip(lspci_arr[0::2], lspci_arr[1::2]) ]
