@@ -57,13 +57,14 @@ def read_all_bytes(device):
     return all_bytes
 
 def find_byte_to_patch(bytes, pos):
-    pos = bytes[pos]
-    if bytes[pos] != 0x10:
-        pos += 0x1
-        return find_byte_to_patch(bytes, pos)
-    else:
-        pos += 0x10
-        return pos
+    if pos >= len(bytes):
+        raise ValueError("Position out of range")
+    value = bytes[pos]
+    if value >= len(bytes):
+        raise ValueError(f"Value at position {pos} points outside array bounds")
+    if bytes[value] != 0x10:
+        return find_byte_to_patch(bytes, value + 0x1)
+    return value + 0x10
 
 def patch_byte(device, position, value):
     subprocess.Popen([
