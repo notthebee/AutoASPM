@@ -1,0 +1,11 @@
+[Unit]
+Description=Run the autoaspm.py script to enable supported ASPM levels for PCIe devices.
+
+[Service]
+User=root
+WorkingDirectory=/root/
+ExecStart=/usr/bin/python3 /root/autoaspm.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
