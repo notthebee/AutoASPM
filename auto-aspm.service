@@ -1,5 +1,5 @@
 [Unit]
-Description=Run the autoaspm.py script to enable suppoerted ASPM levels for PCIe devices.
+Description=Run the autoaspm.py script to enable supported ASPM levels for PCIe devices.
 
 [Service]
 User=root
