@@ -9,6 +9,7 @@ import subprocess
 import os
 import platform
 from enum import Enum
+from shutil import which
 
 class ASPM(Enum):
     DISABLED = 0b00
@@ -22,11 +23,9 @@ def run_prerequisites():
         raise OSError("This script only runs on Linux-based systems")
     if not os.environ.get("SUDO_UID") and os.geteuid() != 0:
         raise PermissionError("This script needs root privileges to run")
-    lspci_detected = subprocess.run(["which", "lspci"], stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL)
-    if lspci_detected.returncode > 0:
+    if which("lspci") is None:
         raise Exception("lspci not detected. Please install pciutils")
-    lspci_detected = subprocess.run(["which", "setpci"], stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL)
-    if lspci_detected.returncode > 0:
+    if which("setpci") is None:
         raise Exception("setpci not detected. Please install pciutils")
 
 
