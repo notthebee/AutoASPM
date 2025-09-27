@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  autoaspm,
   ...
 }:
 let
@@ -14,7 +15,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      pkgs.autoaspm
+      autoaspm
     ];
     systemd.services.autoaspm = {
       description = "Automatically activate ASPM on all supported devices";
@@ -23,11 +24,11 @@ in
         pkgs.python313
         pkgs.which
         pkgs.pciutils
-        pkgs.autoaspm
+        autoaspm
       ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${lib.getExe pkgs.python313} ${pkgs.autoaspm}/bin/autoaspm";
+        ExecStart = "${lib.getExe pkgs.python313} ${autoaspm}/bin/autoaspm";
       };
     };
   };
