@@ -42,7 +42,7 @@
           };
         }
       );
-      nixosModules.auto-aspm =
+      nixosModules.default =
         {
           config,
           pkgs,
