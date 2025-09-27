@@ -18,6 +18,7 @@
       eachSystem = nixpkgs.lib.genAttrs systems;
     in
     {
+      overlays.defautl = import ./overlay.nix;
       nixosModules.autoaspm = ./modules/autoaspm.nix;
       nixosModules.default = self.nixosModules.autoaspm;
       packages = eachSystem (system: {
