@@ -83,7 +83,8 @@
           commonPackages,
         }:
         {
-          default = pkgs.python3Packages.buildPythonApplication {
+          default = self.packages.autoaspm;
+          autoaspm = pkgs.python3Packages.buildPythonApplication {
             name = "autoaspm";
             pname = "autoaspm";
             format = "pyproject";
