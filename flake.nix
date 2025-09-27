@@ -18,7 +18,6 @@
       eachSystem = nixpkgs.lib.genAttrs systems;
     in
     {
-      overlays.default = import ./overlay.nix;
       nixosModules = {
         autoaspm = import ./modules/autoaspm.nix { inherit self; };
         default = self.nixosModules.autoaspm;

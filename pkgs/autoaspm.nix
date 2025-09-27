@@ -29,7 +29,12 @@ stdenv.mkDerivation {
 
     makeWrapper ${python3.interpreter} "$out/bin/autoaspm" \
       --add-flags "$out/libexec/autoaspm/autoaspm.py" \
-      --prefix PATH : ${lib.makeBinPath [ pciutils which ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          pciutils
+          which
+        ]
+      }
 
     runHook postInstall
   '';
