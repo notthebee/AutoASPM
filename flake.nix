@@ -18,6 +18,7 @@
       eachSystem = nixpkgs.lib.genAttrs systems;
     in
     {
+      overlays.default = import ./overlay.nix;
       devShells = eachSystem (
         system:
         {

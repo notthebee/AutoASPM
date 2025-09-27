@@ -27,7 +27,7 @@ in
       ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${lib.getExe pkgs.python313} ${lib.getExe pkgs.autoaspm}";
+        ExecStart = "${lib.getExe pkgs.python313} ${pkgs.autoaspm}/bin/autoaspm";
       };
     };
   };
