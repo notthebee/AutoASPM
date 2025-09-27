@@ -18,22 +18,8 @@
       eachSystem = nixpkgs.lib.genAttrs systems;
     in
     {
-      overlays.default = import ./overlay.nix;
-      devShells = eachSystem (
-        system:
-        {
-          pkgs,
-          commonPackages,
-          pciutils,
-        }:
-        {
-          default = pkgs.mkShell {
-            packages = commonPackages;
-          };
-        }
-      );
-      nixosModules.auto-aspm = ./modules/autoaspm.nix;
-      nixosModules.default = self.nixosModules.auto-aspm;
+      nixosModules.autoaspm = ./modules/autoaspm.nix;
+      nixosModules.default = self.nixosModules.autoaspm;
       packages = eachSystem (system: {
         default = self.packages.${system}.autoaspm;
         autoaspm = nixpkgs.legacyPackages.${system}.callPackage ./pkgs/autoaspm.nix { };

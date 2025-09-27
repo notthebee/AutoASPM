@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.services.auto-aspm;
+  cfg = config.services.autoaspm;
 in
 {
-  options.services.auto-aspm = {
+  options.services.autoaspm = {
     enable = lib.mkEnableOption "Automatically activate ASPM on all supported devices";
   };
 
@@ -16,7 +16,7 @@ in
     environment.systemPackages = [
       pkgs.autoaspm
     ];
-    systemd.services.auto-aspm = {
+    systemd.services.autoaspm = {
       description = "Automatically activate ASPM on all supported devices";
       wantedBy = [ "multi-user.target" ];
       path = [
