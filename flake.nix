@@ -18,18 +18,10 @@
       eachSystem = nixpkgs.lib.genAttrs systems;
     in
     {
-      nixosModules.autoaspm =
-        {
-          config,
-          lib,
-          pkgs,
-          ...
-        }:
-        import ./modules/autoaspm.nix {
-          inherit config lib pkgs;
-          autoaspm = self.packages.${pkgs.system}.autoaspm;
-        };
-      nixosModules.default = self.nixosModules.autoaspm;
+      nixosModules = {
+        autoaspm = import ./modules/autoaspm.nix { inherit self; };
+        default = self.nixosModules.autoaspm;
+      };
       packages = eachSystem (system: {
         default = self.packages.${system}.autoaspm;
         autoaspm = nixpkgs.legacyPackages.${system}.callPackage ./pkgs/autoaspm.nix { };
