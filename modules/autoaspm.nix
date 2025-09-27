@@ -1,8 +1,12 @@
+# NOTE: arguments passed from the flake directly
+{
+  self,
+  ...
+}:
 {
   config,
   pkgs,
   lib,
-  autoaspm,
   ...
 }:
 let
@@ -11,24 +15,20 @@ in
 {
   options.services.autoaspm = {
     enable = lib.mkEnableOption "Automatically activate ASPM on all supported devices";
+    package = lib.mkPackageOption self.packages.${pkgs.stdenv.hostPlatform.system} "autoaspm" { };
   };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      autoaspm
+      cfg.package
     ];
+
     systemd.services.autoaspm = {
       description = "Automatically activate ASPM on all supported devices";
       wantedBy = [ "multi-user.target" ];
-      path = [
-        pkgs.python313
-        pkgs.which
-        pkgs.pciutils
-        autoaspm
-      ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${lib.getExe pkgs.python313} ${autoaspm}/bin/autoaspm";
+        ExecStart = "${lib.getExe cfg.package}";
       };
     };
   };
