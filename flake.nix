@@ -47,6 +47,7 @@
           config,
           pkgs,
           lib,
+          ...
         }:
         let
           cfg = config.services.auto-aspm;
