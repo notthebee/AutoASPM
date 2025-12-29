@@ -1,3 +1,3 @@
-This project has been moved to https://git.notthebe.ee/notthebee/nix-config
+This project has been moved to https://git.notthebe.ee/notthebee/AutoASPM
 
 For reasoning, see https://notthebe.ee/blog/moving-away-from-github/
