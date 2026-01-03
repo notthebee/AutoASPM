@@ -16,7 +16,7 @@ a device (e.g. L0s, L0sL1 or L1).
 ### NixOS - Run once
 
 ```bash
-sudo nix run github:notthebee/AutoASPM
+sudo nix run git+https://git.notthebe.ee/notthebee/AutoASPM
 ```
 
 ### NixOS - Install permanently
@@ -26,11 +26,10 @@ sudo nix run github:notthebee/AutoASPM
 ```nix
 {
   inputs.autoaspm = {
-    url = "github:notthebee/AutoASPM?shallow=true";
+    url = "git+https://git.notthebe.ee/notthebee/AutoASPM";
     # NOTE: optionally your flake's `nixpkgs`
     # inputs.nixpkgs.follows = "nixpkgs";
   };
-
   # ...
 }
 ```
